@@ -2,6 +2,7 @@ vis_roccat
 ==========
 
 Roccat Talk Visualization plugin for Winamp by Jaedyn K Draper
+http://www.github.com/ShadauxCat/vis_roccat
 
 To install, simply drop vis_roccat.dll and Roccat Talk SDK.dll into your winamp plugins directory, then enable the mod in the winamp preferences menu.
 

@@ -57,7 +57,7 @@ int columns[22][6] =
 
 /*static*/ void SpectrumAnalyzer::Config(struct winampVisModule* mod)
 {
-	MessageBox( mod->hwndParent, "Roccat Talk Visualizer\nby Jaedyn K Draper\nhttp://www.github.net/ShadauxCat/vis_roccat", "Roccat Talk Visualizer", MB_OK);
+	MessageBox( mod->hwndParent, "Roccat Talk Visualizer\nby Jaedyn K Draper\nhttp://www.github.com/ShadauxCat/vis_roccat", "Roccat Talk Visualizer", MB_OK);
 }
 
 /*static*/ int SpectrumAnalyzer::Init(struct winampVisModule* /*mod*/)
