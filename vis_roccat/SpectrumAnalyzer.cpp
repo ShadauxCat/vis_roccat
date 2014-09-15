@@ -45,7 +45,7 @@ int columns[22][6] =
 	{ 101, 88, 71, 49, 27, -1 },
 	{ 102, 89, 72, 50, 28, 9 },
 	{ 103, 90, 73, 51, 29, 10 },
-	{ 104, 90, 52, 52, 30, 11 },
+	{ 104, 90, 73, 52, 30, 11 },
 	{ 105, -1, -1, 53, 31, 13 },
 	{ 106, 91, -1, 54, 32, 14 },
 	{ 107, -1, -1, 55, 33, 15 },
@@ -57,7 +57,7 @@ int columns[22][6] =
 
 /*static*/ void SpectrumAnalyzer::Config(struct winampVisModule* mod)
 {
-	MessageBox( mod->hwndParent, "Roccat Talk Visualizer\nby Jaedyn K Draper\nhttp://www.github.com/ShadauxCat/vis_roccat", "Roccat Talk Visualizer", MB_OK);
+	MessageBox( mod->hwndParent, "Roccat Talk Visualizer\nby Jaedyn K Draper\nhttp://www.github.net/ShadauxCat/vis_roccat", "Roccat Talk Visualizer", MB_OK);
 }
 
 /*static*/ int SpectrumAnalyzer::Init(struct winampVisModule* /*mod*/)
@@ -113,7 +113,7 @@ int columns[22][6] =
 	}
 	
 	BYTE red = 0;
-	BYTE green = 255;
+	BYTE green = 0;
 	BYTE blue = 0;
 	
 	int last=mod->waveformData[0][0];
@@ -137,33 +137,39 @@ int columns[22][6] =
 		ratio = 1.0;
 	}
 
-	if(ratio < 0.5)
+	if(ratio <= 0.2)
 	{
-		ratio *= 2.0;
-		ratio = 1 - ratio;
-		if(ratio > 0.5)
-		{
-			blue = 255;
-			green = BYTE(255 - (255 * (ratio - 0.5) * 2));
-		}
-		else
-		{
-			blue = BYTE(255 * ratio * 2);
-		}
+		ratio *= 5;
+		blue = 255;
+		red = BYTE(255 - (255 * ratio));
+	}
+	else if(ratio <= 0.4)
+	{
+		ratio -= 0.2;
+		ratio *= 5;
+		blue = 255;
+		green = BYTE(255 * ratio);
+	}
+	else if(ratio <= 0.6)
+	{
+		ratio -= 0.4;
+		ratio *= 5;
+		green = 255;
+		blue = BYTE(255 - (255 * ratio));
+	}
+	else if(ratio <= 0.8)
+	{
+		ratio -= 0.6;
+		ratio *= 5;
+		green = 255;
+		red = BYTE(255 * ratio);
 	}
 	else
 	{
-		ratio -= 0.5;
-		ratio *= 2.0;
-		if(ratio > 0.5)
-		{
-			red = 255;
-			green = BYTE(255 - (255 * (ratio - 0.5) * 2));
-		}
-		else
-		{
-			red = BYTE(255 * ratio * 2);
-		}
+		ratio -= 0.8;
+		ratio *= 5;
+		red = 255;
+		green = BYTE(255 - (255 * ratio));
 	}
 
 	talker.Set_LED_RGB(TALKFX_ZONE_EVENT, TALKFX_EFFECT_ON, TALKFX_SPEED_FAST, red, green, blue);

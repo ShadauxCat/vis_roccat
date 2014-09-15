@@ -24,7 +24,7 @@ THE SOFTWARE.
 #include "vis_roccat.h"
 #include "SpectrumAnalyzer.h"
 
-winampVisHeader hdr = { 0x100,
+winampVisHeader hdr = { 0x102,
 			"Roccat Talk Visualizer", 
 			getModule };
 
