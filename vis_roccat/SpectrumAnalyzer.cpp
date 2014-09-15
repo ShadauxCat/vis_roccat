@@ -117,19 +117,21 @@ int columns[22][6] =
 	BYTE blue = 0;
 	
 	int last=mod->waveformData[0][0];
-	int total=0;
-	for(int waveformSlot = 1; waveformSlot < 144; ++waveformSlot)
+	double total=0;
+	for(int waveformSlot = 1; waveformSlot < 576; ++waveformSlot)
 	{
 		total += abs(last - mod->waveformData[0][waveformSlot]);
 		last = mod->waveformData[0][waveformSlot];
 	}
-	total /= 72;
+	total /= 288;
 	if(total > 127)
 	{
 		total = 127;
 	}
-	double ratio = 1.0-double(total)/127.0;
-	ratio /= 0.9;
+	double ratio = double(total)/127.0;
+	//The whole ratio just doesn't have enough variation in it for the set of lights the Roccat devices are capable of.
+	//Cut it in half since most things seem to stay under 0.5 anyway.
+	ratio /= 0.5;
 	if(ratio > 1.0)
 	{
 		ratio = 1.0;
